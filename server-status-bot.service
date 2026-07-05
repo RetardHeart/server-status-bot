@@ -10,8 +10,15 @@ User=botuser
 WorkingDirectory=/opt/server-status-bot
 ExecStart=/opt/server-status-bot/.venv/bin/python /opt/server-status-bot/bot.py
 EnvironmentFile=/opt/server-status-bot/.env
-Restart=on-failure
+# Перезапускать при любой остановке (сбой, зависание, плановый рестарт по таймеру)
+Restart=always
 RestartSec=5
+# Плановый перезапуск раз в 30 минут, чтобы исключить зависание.
+# systemd остановит процесс по таймеру и поднимет заново — работает
+# даже если сам бот намертво завис (внутренний таймер в этом случае не спас бы).
+RuntimeMaxSec=1800
+# Если процесс не отвечает на SIGTERM, добить принудительно через 20 сек.
+TimeoutStopSec=20
 
 [Install]
 WantedBy=multi-user.target
