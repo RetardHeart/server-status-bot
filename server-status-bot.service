@@ -1,0 +1,17 @@
+[Unit]
+Description=Telegram Server Status Bot
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+# Замените на пользователя и путь на вашем сервере
+User=botuser
+WorkingDirectory=/opt/server-status-bot
+ExecStart=/opt/server-status-bot/.venv/bin/python /opt/server-status-bot/bot.py
+EnvironmentFile=/opt/server-status-bot/.env
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
