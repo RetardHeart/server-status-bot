@@ -6,7 +6,7 @@ Wants=network-online.target
 [Service]
 Type=simple
 # Замените на пользователя и путь на вашем сервере
-User=botuser
+User=root # до этого стоял botuser и бот не уходил в сервис, а тоесть мог лечь через пару минут
 WorkingDirectory=/opt/server-status-bot
 ExecStart=/opt/server-status-bot/.venv/bin/python /opt/server-status-bot/bot.py
 EnvironmentFile=/opt/server-status-bot/.env
